@@ -91,7 +91,7 @@ async fn main() -> anyhow::Result<()> {
         .build()
         .unwrap();
     let mut network_subgraph = SubgraphClient::builder(http.clone(), config.network_subgraph)
-        .with_auth_token(Some(config.query_auth.clone()))
+        .with_auth_token(config.query_auth.clone())
         .build();
 
     let mut signers: Vec<PrivateKeySigner> = Default::default();
@@ -482,7 +482,7 @@ async fn main() -> anyhow::Result<()> {
                 network_subgraph.http_client,
                 network_subgraph.subgraph_url,
             )
-            .with_auth_token(Some(config.query_auth.clone()))
+            .with_auth_token(config.query_auth.clone())
             .with_subgraph_latest_block(tx_block)
             .build();
         }

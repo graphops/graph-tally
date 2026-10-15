@@ -17,9 +17,17 @@ Configuration options are set via a single JSON file. The structure of the file 
 |-------|-------------|
 | `authorize_signers` | If `true`, automatically authorize signers on startup |
 | `dry_run` | If `true`, skip contract calls (useful for testing) |
+| `query_auth` | Optional subgraph bearer token; omit, set to `null`, or use `""` to send no Authorization header |
 | `port_metrics` | Port for Prometheus metrics server (default: 9090) |
 | `update_interval_seconds` | Polling interval for the main loop |
 | `balance_fill_factor` | Funding margin, in the range (0, 1] (default: 0.8) |
+
+## Subgraph Authentication
+
+For an unauthenticated `network_subgraph` endpoint, omit `query_auth` or set it to
+`null` or `""`. These values all omit the HTTP `Authorization` header, both on startup
+and when the subgraph client is rebuilt after a transaction. A non-empty string
+continues to send `Authorization: Bearer <query_auth>`.
 
 ## Funding Margin
 
