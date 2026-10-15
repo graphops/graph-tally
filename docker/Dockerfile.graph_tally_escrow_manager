@@ -8,7 +8,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY . .
 
-RUN cargo build --release --bin graph_tally_escrow_manager
+ENV CARGO_BUILD_JOBS=4
+
+RUN rustup component add clippy \
+    && cargo test --locked --package graph_tally_escrow_manager \
+    && cargo clippy --locked --package graph_tally_escrow_manager --all-targets -- -D warnings \
+    && cargo build --locked --release --bin graph_tally_escrow_manager
 
 ########################################################################################
 
